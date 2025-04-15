@@ -13,6 +13,7 @@ sklearn.metrics.accuracy_score: To evaluate the accuracy of the models.
 sklearn.metrics.classification_report: To get a detailed report of precision, recall, F1-score, and support for each class.
 re: For regular expressions (used for text cleaning).
 string: For string constants (used for punctuation removal).
+
 2. Loading and Preprocessing Data:
 
 data_fake = pd.read_csv('fake.csv'): Loads the dataset containing fake news.
@@ -30,6 +31,7 @@ data = data.sample(frac = 1): Randomly shuffles the rows of the DataFrame. This 
 data.reset_index(inplace = True): Resets the index of the shuffled DataFrame.
 data.drop(['index'], axis = 1, inplace = True): Removes the old index column.
 data.columns, data.head(): Display the remaining columns and the first few rows of the processed DataFrame.
+
 3. Text Preprocessing Function (wordopt):
 
 This function takes a text string as input and performs several cleaning steps:
@@ -42,17 +44,20 @@ Removes punctuation marks.
 Removes newline characters \n.
 Removes words containing digits \w*\d\w*.
 data['text'] = data['text'].apply(wordopt): Applies the wordopt function to the 'text' column of the DataFrame, cleaning the text data.
+
 4. Splitting Data:
 
 x = data['text']: Defines the independent variable (features) as the 'text' column.
 y = data['class']: Defines the dependent variable (target) as the 'class' column.
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.25): Splits the data into training and testing sets. test_size=0.25 means that 25% of the data will be used for testing, and 75% for training.
+
 5. Text Vectorization (TF-IDF):
 
 from sklearn.feature_extraction.text import TfidfVectorizer: Imports the TfidfVectorizer class.
 vectorization = TfidfVectorizer(): Creates an instance of the TfidfVectorizer.
 xv_train = vectorization.fit_transform(x_train): Fits the vectorizer to the training text data and transforms it into a TF-IDF (Term Frequency-Inverse Document Frequency) matrix. TF-IDF converts text into numerical vectors, where each word's importance in a document is weighted.
 xv_test = vectorization.transform(x_test): Transforms the testing text data into a TF-IDF matrix using the vocabulary learned from the training data.
+
 6. Building and Evaluating Machine Learning Models:
 
 Logistic Regression:
@@ -74,9 +79,11 @@ Similar steps are followed for the Gradient Boosting Classifier (GradientBoostin
 Random Forest Classifier:
 
 Similar steps are followed for the Random Forest Classifier (RandomForestClassifier). random_state=0 is used for reproducibility.
+
 7. Output Label Function (output_lable):
 
 This function takes a numerical label (0 or 1) and returns the corresponding string ("Fake News" or "Real News").
+
 8. Manual Testing Function (manual_testing):
 
 Takes a news article text as input.
@@ -85,10 +92,12 @@ Applies the wordopt function to clean the input text.
 Transforms the cleaned text into a TF-IDF vector using the already fitted vectorization object.
 Uses each of the trained models (LR, DT, GB, RF) to predict the class of the input news.
 Prints the predictions of all four models.
+
 9. Manual Input and Testing:
 
 news = str(input()): Prompts the user to enter a news article.
 manual_testing(news): Calls the manual_testing function to classify the user-provided news.
 The commented-out line ### you'll need to enter the data here manually serves as a reminder for the user.
+
 10. Printing Accuracies:
 - Finally, the code prints the accuracy of each trained model again.
